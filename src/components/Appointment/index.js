@@ -2,11 +2,7 @@ import React from "react";
 import "./styles.scss";
 
 export default function Appointment() {
-  return (
-    <Appointment
-    time = "12pm"
-    />
-  );
+  return <article className="appointment"></article>
 }
 
 
