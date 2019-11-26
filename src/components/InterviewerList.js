@@ -6,7 +6,7 @@ import InterviewerListItem from "./InterviewerListItem";
 export default function InterviewerList({interviewers, value, onChange}) {
   const interviewerList = interviewers.map((interviewer) =>
       <InterviewerListItem
-        key={interviewer.id} //what this for?
+        key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
         selected={interviewer.id === value}

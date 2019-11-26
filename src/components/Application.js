@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
+import Application from "components/Application"
 
 const days = [
   {
@@ -50,11 +51,13 @@ export default function Application(props) {
         src="images/lhl.png"
         alt="Lighthouse Labs"
       />
+        {/* Replace this with the sidebar elements during the "Environment Setup" activity. */}
       </section>
       <section className="schedule">
         <nav className="sidebar__menu">
           <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} />
         </nav>
+        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
       </section>
     </main>
     
