@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from 'react'
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -64,6 +64,22 @@ const days = [
   },
 ];
 
+
+const interviewer = {
+  id: 1,
+  name: "Sylvia Palmer",
+  avatar: "https://i.imgur.com/LpaY82x.png"
+};
+
+
+const interviewers = [
+  { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
+  { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
+  { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
+  { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
+  { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
+];
+
 storiesOf("DayList", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
@@ -74,12 +90,6 @@ storiesOf("DayList", module)
   .add("Tuesday", () => (
     <DayList days={days} day={"Tuesday"} setDay={action("setDay")} />
   ));
-
-const interviewer = {
-  id: 1,
-  name: "Sylvia Palmer",
-  avatar: "https://i.imgur.com/LpaY82x.png"
-};
 
 storiesOf("InterviewerListItem", module)
   .addParameters({
@@ -109,13 +119,6 @@ storiesOf("InterviewerListItem", module)
     />
   ));
 
-const interviewers = [
-  { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
-  { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
-  { id: 3, name: "Mildred Nazir", avatar: "https://i.imgur.com/T2WwVfS.png" },
-  { id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg" },
-  { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
-];
 
 storiesOf("InterviewerList", module)
   .addParameters({
@@ -144,8 +147,24 @@ storiesOf("Appointment", module)
     <Appointment 
       time="12pm"
     />
-
+  
   ))
+.add("Appointment Empty", () => (
+  <Fragment>
+    <Appointment id={1} time="12pm" />
+    <Appointment id="last" time="1pm" />
+  </Fragment>
+))
+.add("Appointment Booked", () => (
+  <Fragment>
+    <Appointment
+      id={1}
+      time="12pm"
+      interview={{ student: "Lydia Miller-Jones", interviewer }}
+    />
+    <Appointment id="last" time="1pm" />
+  </Fragment>
+))
   .add("Header", () => (
     <Header
     time="12pm"
@@ -192,3 +211,4 @@ storiesOf("Appointment", module)
     onSave={action("onSave")}
   />
   )
+
