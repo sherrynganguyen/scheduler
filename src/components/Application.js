@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
-import Application from "components/Application"
+// import Appointment from "components/Appointment"
 
 const days = [
   {
