@@ -75,8 +75,11 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         <nav className="sidebar__menu">
-          {/* <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} /> */}
+          {appointments.map((appointment) =>
+          <Appointment key={appointment.id} {...appointment} />
+          )}
         </nav>
+
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
       </section>
     </main>
