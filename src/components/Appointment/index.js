@@ -12,28 +12,28 @@ import "./styles.scss";
 
 export default function Appointment(props) {
   let display;
-  if (props.interview) {
-    display = <Show 
-      id={props.id}
-      time={props.time}
-      student={props.interview["student"]}
-      interviewer={props.interview["interviewer"]}
-      />
-  } else {
-    display = <Empty/>
-  }
+  // if (props.interview) {
+  //   display = <Show 
+  //     id={props.id}
+  //     time={props.time}
+  //     student={props.interview["student"]}
+  //     interviewer={props.interview["interviewer"]}
+  //     />
+  // } else {
+  //   display = <Empty/>
+  // }
   return (
     <Fragment>
         <Header id={props.id} time={props.time}/>
-        {display}
-        {/* (props.interview) ? 
+        {/* {display} */}
+        {(props.interview) ? 
           <Show 
           id={props.id}
           time={props.time}
           student={props.interview["student"]}
           interviewer={props.interview["interviewer"]}
           />
-          : <Empty/> */}
+          : <Empty/>}
     </Fragment>  
 
   )
