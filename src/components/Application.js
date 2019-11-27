@@ -7,24 +7,6 @@ import DayList from "components/DayList";
 import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment"
 
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
-
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
@@ -79,8 +61,14 @@ const appointments = [
 
 export default function Application(props) {
 
-  const [days, setDays] = useState([]);
-  
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  })
+
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState({ ...state, days });
   useEffect(() => {
     axios
       .get(
@@ -90,7 +78,7 @@ export default function Application(props) {
         setDays(response.data)
       }); 
   },[])
-  const [day, setDay] = useState("")
+
 
   const [interviewer, setInterviewer] = useState(1);
 
@@ -106,7 +94,7 @@ export default function Application(props) {
         />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-        <DayList days={days} day={day} setDay={setDay} />
+        <DayList days={state.days} day={state.day} setDay={setDay} />
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
