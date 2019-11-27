@@ -26,6 +26,14 @@ export default function Appointment(props) {
     <Fragment>
         <Header id={props.id} time={props.time}/>
         {display}
+        {/* (props.interview) ? 
+          <Show 
+          id={props.id}
+          time={props.time}
+          student={props.interview["student"]}
+          interviewer={props.interview["interviewer"]}
+          />
+          : <Empty/> */}
     </Fragment>  
 
   )
