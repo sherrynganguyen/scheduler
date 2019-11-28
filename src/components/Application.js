@@ -4,7 +4,7 @@ import axios from "axios";
 
 import "components/Application.scss";
 import DayList from "components/DayList";
-import InterviewerList from "components/InterviewerList";
+// import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterview } from "helpers/selectors"
 
@@ -33,23 +33,6 @@ export default function Application(props) {
     });
   },[])
 
-  const appointments = getAppointmentsForDay(state, state.day)
-
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-    if (interview) {
-      return (
-        <Appointment
-          key={appointment.id}
-          id={appointment.id}
-          time={appointment.time}
-          interview={interview}
-        />
-      );
-    }
-
-  });
-
   return (
     <main className="layout">
       <section className="sidebar">
@@ -66,15 +49,22 @@ export default function Application(props) {
         className="sidebar__lhl sidebar--centered"
         src="images/lhl.png"
         alt="Lighthouse Labs"
-      />
+        />
         {/* Replace this with the sidebar elements during the "Environment Setup" activity. */}
       </section>
       <section className="schedule">
         <nav className="sidebar__menu">
 
         </nav>
-        {schedule}
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+          {getAppointmentsForDay(state, state.day).map((appointment) => (
+            <Appointment
+              key={appointment.id}
+              id={appointment.id}
+              time={appointment.time}
+              interview={getInterview(state, appointment.interview)}
+            />
+          ))}
+          <Appointment key={"last"} time={"5pm"}/>
       </section>
     </main>
     
