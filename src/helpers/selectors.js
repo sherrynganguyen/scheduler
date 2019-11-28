@@ -1,13 +1,12 @@
-export default function getAppointmentsForDay(state, day) {
+function getAppointmentsForDay(state, queryDay) {
   const appointmentDetails = [];
   if (state.days.length === 0) {
     return appointmentDetails;
   } else {
-    const appointment = state.days.filter(dayInState => dayInState.name === day)[0]
-    if (appointment) {
-      for (let appt of appointment["appointments"]) {
+    const day = state.days.filter(dayInState => dayInState.name === queryDay)[0]
+    if (day) {
+      for (let appt of day["appointments"]) {
         if(state.appointments[appt]) {
-
           appointmentDetails.push(state.appointments[appt])
         }
       }
@@ -18,9 +17,19 @@ export default function getAppointmentsForDay(state, day) {
   }
 }
 
-// export default function getInterview(state, interview) {
+function getInterview(state, interview) {
+  let intDetails;
+  if (interview) {
+    intDetails = {
+      "student": interview.student,
+      "interviewer": state.interviewers[interview.interviewer]
+    }
+    return intDetails;
+  }
+  return null;
+}
 
-// }
+module.exports = { getAppointmentsForDay, getInterview}
 
 
 //SUPPOSE TO RETURN THIS
@@ -46,6 +55,19 @@ export default function getAppointmentsForDay(state, day) {
 //     id: 2,
 //     name: "Tori Malcolm",
 //     avatar: "https://i.imgur.com/Nmx0Qxo.png"
+//   }
+// }
+
+// {
+//   "id":1,
+//   "time":"12pm",
+//   "interview": {
+//     "student": "Lydia Miller-Jones",
+//     "interviewer": {
+//       "id": 1,
+//       "name": "Sylvia Palmer",
+//       "avatar": "https://i.imgur.com/LpaY82x.png"
+//     }
 //   }
 // }
 
