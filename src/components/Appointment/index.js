@@ -28,15 +28,16 @@ export default function Appointment(props) {
       interviewer
     }
     transition(SAVING);
-  };  
+  };
 
   const { mode, transition, back } = useVisualMode (
     props.interview ? SHOW : EMPTY
   );
+
   return (
     <Fragment>
         <Header id={props.id} time={props.time}/>
-        {mode === EMPTY && <Empty onAdd={props.onAdd} />}
+        {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
         {mode === SHOW && (
           <Show
             student={props.interview.student}
@@ -45,8 +46,8 @@ export default function Appointment(props) {
         )}
         {mode === CREATE && (
           <Form
-            name={props.interview.name}
-            interviewer={props.interviewers}
+            // name={props.interview.name}
+            interviewers={props.interviewers}
             onCancel={back}
             onSave={save}
           />

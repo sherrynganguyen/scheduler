@@ -6,7 +6,7 @@ import "components/Application.scss";
 import DayList from "components/DayList";
 // import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment"
-import { getAppointmentsForDay, getInterview } from "helpers/selectors"
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors"
 
 export default function Application(props) {
 
@@ -32,7 +32,6 @@ export default function Application(props) {
       })
     });
   },[])
-
   return (
     <main className="layout">
       <section className="sidebar">
@@ -62,6 +61,7 @@ export default function Application(props) {
               id={appointment.id}
               time={appointment.time}
               interview={getInterview(state, appointment.interview)}
+              interviewers={getInterviewersForDay(state, state.day)}
             />
           ))}
           <Appointment key={"last"} time={"5pm"}/>
