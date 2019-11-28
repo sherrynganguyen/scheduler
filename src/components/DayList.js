@@ -7,7 +7,8 @@ export default function DayList({days, day, setDay}) {
       name={dayListItem.name} 
       spots={dayListItem.spots} 
       selected={dayListItem.name === day}
-      setDay={setDay}  />
+      setDay={setDay}
+      />
   );
 
   return <ul>{dayList}</ul>;
