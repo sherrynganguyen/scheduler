@@ -4,12 +4,11 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
   function transition(mode, replace = false ) {
+    console.log(mode);
     if (replace === false) {
       
       setMode(mode);
-      setHistory([...history, mode]); //set history to track previous state
-      // console.log(history)
-      // history.push(mode);
+      setHistory(history => [...history, mode]); //set history to track previous state
       return;
     } else {
       setMode(mode);

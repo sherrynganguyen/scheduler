@@ -1,37 +1,40 @@
 import React, { useState, useEffect } from "react";
 
-import axios from "axios";
-
 import "components/Application.scss";
 import DayList from "components/DayList";
-// import InterviewerList from "components/InterviewerList";
-import Appointment from "components/Appointment"
-import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors"
+import Appointment from "components/Appointment";
+import { 
+  getAppointmentsForDay, 
+  getInterviewersForDay, 
+  getInterview 
+} from "helpers/selectors";
+import useApplicationData from "../../src/hooks/useApplicationData";
 
 export default function Application(props) {
 
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  })
-  ;
-  const setDay = day => setState({ ...state, day });
-  useEffect(() => {
-    const promiseDays = axios.get(`http://localhost:8001/api/days`);
-    const promiseAppts = axios.get(`http://localhost:8001/api/appointments`);
-    const promiseInts = axios.get(`http://localhost:8001/api/interviewers`);
-    
-    Promise.all([promiseDays, promiseAppts, promiseInts]).then((all) => {
-      setState({
-        ...state,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data,
-      })
-    });
-  },[])
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+
+  const appointments = getAppointmentsForDay(state, state.day).map(
+    appointment => {
+      return (
+        <Appointment
+          key={appointment.id}
+          id={appointment.id}
+          time={appointment.time}
+          interview={getInterview(state, appointment.interview)}
+          interviewers={getInterviewersForDay(state, state.day)}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
+        />
+      );
+    }
+  );
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -42,29 +45,17 @@ export default function Application(props) {
         />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-        <DayList days={state.days} day={state.day} setDay={setDay} />
+        <DayList days={state.days} day={state.day} setDay={setDay} />     
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
         src="images/lhl.png"
         alt="Lighthouse Labs"
         />
-        {/* Replace this with the sidebar elements during the "Environment Setup" activity. */}
       </section>
       <section className="schedule">
-        <nav className="sidebar__menu">
-
-        </nav>
-          {getAppointmentsForDay(state, state.day).map((appointment) => (
-            <Appointment
-              key={appointment.id}
-              id={appointment.id}
-              time={appointment.time}
-              interview={getInterview(state, appointment.interview)}
-              interviewers={getInterviewersForDay(state, state.day)}
-            />
-          ))}
-          <Appointment key={"last"} time={"5pm"}/>
+          {appointments}          
+          <Appointment key={"last"} time={"7pm"}/>
       </section>
     </main>
     
