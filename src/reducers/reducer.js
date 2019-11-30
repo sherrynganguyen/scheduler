@@ -6,20 +6,27 @@ export default function reducer(state, action) {
   switch(action.type) {
     case SET_DAY:
       return ({...state, day: action.value});
-    case SET_APPLICATION_DATA:
+    case SET_APPLICATION_DATA: {
       const [days, appointments, interviewers] = action.value;
+      console.log('sn1', {...state, days, appointments, interviewers})
       return ({...state, days, appointments, interviewers});
-    case SET_INTERVIEW:
-      const [id, interview] = action.value;
+    }
+    case SET_INTERVIEW: {
+      const {id, interview} = action.value;
+      console.log('sn4', action.value)
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
       };
-      appointments = {
+      const appointments = {
         ...state.appointments,
         [id]: appointment
       };
+      // spots = {
+      //   ...state.
+      // }
       return ({...state, appointments});
+    }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -27,5 +34,4 @@ export default function reducer(state, action) {
   }
 };
 
-// export default reducer;
 export {SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW};

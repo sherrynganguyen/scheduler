@@ -7,7 +7,7 @@ import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reduce
 export default function useApplicationData() {
 
   const initialState = {      
-    day: "",
+    day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
@@ -36,31 +36,35 @@ export default function useApplicationData() {
 
   //booking new interview
 
-  const bookInterview = (id, interview) => {
+  function bookInterview(id, interview) {
+    console.log('sn3', id, 'sn5',interview)
 
     return axios
-      .put(`http://localhost:8001/api/appointments/${id}`, interview)
-      .then(() => 
-        dispatchState({
-          type: SET_INTERVIEW,
-          value: {id, interview}
-        }))
-      .catch(error => error)
-      
+      .put(`/api/appointments/${id}`, {interview})
+      .then(res => {
+        if (res.status === 204) {
+          dispatchState({
+            type: SET_INTERVIEW,
+            value: {id, interview}
+          })
+        }
+      })
   };
 
   //deleting interview
 
-  const cancelInterview = (id, interview) => {
+  function cancelInterview(id) {
   
     return axios
-      .delete(`http://localhost:8001/api/appointments/${id}`, interview)
-      .then(() =>
-        dispatchState({
-          type: SET_INTERVIEW,
-          value: {id, interview: null}
-        }))
-      .catch(error => error)  
+      .delete(`/api/appointments/${id}`)
+      .then((res) => {
+        if (res.status === 204) {
+          dispatchState({
+            type: SET_INTERVIEW,
+            value: {id, interview: null}
+          })
+        }
+      })
   }
 
   return {

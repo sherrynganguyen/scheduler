@@ -40,14 +40,10 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_SAVE, true));
   };
 
-  const destroy = (name, interviewer) => {
-    const interview = {
-      student: name,
-      interviewer
-    }
+  const destroy = () => {
     transition(DELETE, true);
     props
-      .cancelInterview(props.id, interview)
+      .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
   }
@@ -101,10 +97,14 @@ export default function Appointment(props) {
         )}
         {mode === ERROR_SAVE && (
           <Error
+            message={"save"}
+            onClose={back}
           />
         )}
         {mode === ERROR_DELETE && (
           <Error
+            message={"delete"}
+            onClose={back}
           />
         )}
       
