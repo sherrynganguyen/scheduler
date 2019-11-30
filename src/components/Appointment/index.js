@@ -73,7 +73,7 @@ export default function Appointment(props) {
               name={props.interview.student}
               interviewers={props.interviewers}
               interviewer={props.interview.interviewer.id}
-              onCancel={back}
+              onCancel={() => transition(SHOW)}
               onSave={saveData}
             />
         )}
@@ -98,13 +98,13 @@ export default function Appointment(props) {
         {mode === ERROR_SAVE && (
           <Error
             message={"save"}
-            onClose={back}
+            onClose={() => transition(EDIT)}
           />
         )}
         {mode === ERROR_DELETE && (
           <Error
             message={"delete"}
-            onClose={back}
+            onClose={() => transition(SHOW)}
           />
         )}
       

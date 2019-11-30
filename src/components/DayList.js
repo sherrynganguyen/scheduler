@@ -1,7 +1,7 @@
 import React from "react";
 import DayListItem from "components/DayListItem";
 
-export default function DayList({days, day, setDay}) {
+export default function DayList({days, day, setDay, spots}) {
   const dayList = days.map((dayListItem) => 
       <DayListItem 
       name={dayListItem.name} 

@@ -11,6 +11,7 @@ export default function useApplicationData() {
     days: [],
     appointments: {},
     interviewers: {},
+    spotUpdate: true
   };
   // const setDay = day => setState({ ...state, day });
 
@@ -45,7 +46,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview}
+            value: {id, interview, spotUpdate: true}
           })
         }
       })
@@ -61,7 +62,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview: null}
+            value: {id, interview: null, spotUpdate: false}
           })
         }
       })
