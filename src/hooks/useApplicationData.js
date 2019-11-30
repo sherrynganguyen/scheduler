@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
 import axios from "axios";
 
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reducers/reducer";
+
 export default function useApplicationData() {
 
-  //original state for the App
-  const [state, setState] = useState({      
+  const initialState = {      
     day: "",
     days: [],
     appointments: {},
     interviewers: {},
-    bookInterview,
-    cancelInterview,
-  });
+  };
+  // const setDay = day => setState({ ...state, day });
 
-  const setDay = day => setState({ ...state, day });
+  const [state, dispatchState] = useReducer(reducer, initialState);
 
-  //fetch data from api and update the original state with new data
+  const setDay = day => dispatchState({type: SET_DAY, value: day})
+
+  // fetch data from api and update the original state with new data
 
   useEffect(() => {          
   
@@ -25,60 +27,39 @@ export default function useApplicationData() {
       axios.get(`http://localhost:8001/api/appointments`),
       axios.get(`http://localhost:8001/api/interviewers`)
     ]).then((all) => {
-      setState({
-        ...state,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data,
+      dispatchState({
+        type: SET_APPLICATION_DATA,
+        value:[all[0].data, all[1].data, all[2].data]
       })
     });
-  },[])
+  },[]);
 
   //booking new interview
 
-  function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    setState({
-      ...state,
-      appointments
-    })
+  const bookInterview = (id, interview) => {
 
     return axios
-      .put(`http://localhost:8001/api/appointments/${id}`, {interview})
+      .put(`http://localhost:8001/api/appointments/${id}`, interview)
       .then(() => 
-        setState({...state, appointments}))
+        dispatchState({
+          type: SET_INTERVIEW,
+          value: {id, interview}
+        }))
       .catch(error => error)
       
-  }
+  };
 
   //deleting interview
 
-  function cancelInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-
-    setState({
-      ...state,
-      appointments
-    })    
+  const cancelInterview = (id, interview) => {
+  
     return axios
       .delete(`http://localhost:8001/api/appointments/${id}`, interview)
       .then(() =>
-        setState({...state, appointments}))
+        dispatchState({
+          type: SET_INTERVIEW,
+          value: {id, interview: null}
+        }))
       .catch(error => error)  
   }
 
