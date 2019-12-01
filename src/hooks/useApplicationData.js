@@ -38,8 +38,6 @@ export default function useApplicationData() {
   //booking new interview
 
   function bookInterview(id, interview) {
-    console.log('sn3', id, 'sn5',interview);
-
     return axios
       .put(`/api/appointments/${id}`, {interview})
       .then(res => {

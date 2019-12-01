@@ -3,6 +3,7 @@ import React from "react";
 export default function Show(props) {
   const edit = () => {
     props.onEdit(props.student, props.interviewer ? props.interviewer.name : "");
+    console.log('sn1', props.interviewer)
   };
   
   return (
