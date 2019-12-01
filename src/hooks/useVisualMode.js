@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
-  function transition(mode, replace = false ) {
+  function transition(mode, replace = false) {
     console.log(mode);
     if (replace === false) {
       
@@ -13,14 +13,14 @@ export default function useVisualMode(initial) {
     } else {
       setMode(mode);
     }
-  };
+  }
   function back() {
-    if (history.length >1) {
+    if (history.length > 1) {
       history.pop();  //to cut the current state from history state
-      setMode(history[history.length - 1])
-      return ;
-    } 
+      setMode(history[history.length - 1]);
+      return;
+    }
     return;
-  };
+  }
   return { mode, transition, back };
 }

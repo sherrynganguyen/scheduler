@@ -8,8 +8,7 @@ export default function InterviewerListItem({name, avatar, selected, setIntervie
   const interviewerClass = className('interviewers__item', {
     'interviewers__item--selected': selected,
 
-  })
-
+  });
   return (
     <li className={interviewerClass} onClick={setInterviewer}>
       <img
@@ -17,8 +16,8 @@ export default function InterviewerListItem({name, avatar, selected, setIntervie
         src={avatar}
         alt={name}
       />
-      {selected && name} 
-  </li>
-  )
+      {selected && name}
+    </li>
+  );
 }
 

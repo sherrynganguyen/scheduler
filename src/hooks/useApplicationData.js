@@ -6,7 +6,7 @@ import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reduce
 
 export default function useApplicationData() {
 
-  const initialState = {      
+  const initialState = {
     day: "Monday",
     days: [],
     appointments: {},
@@ -17,11 +17,11 @@ export default function useApplicationData() {
 
   const [state, dispatchState] = useReducer(reducer, initialState);
 
-  const setDay = day => dispatchState({type: SET_DAY, value: day})
+  const setDay = day => dispatchState({type: SET_DAY, value: day});
 
   // fetch data from api and update the original state with new data
 
-  useEffect(() => {          
+  useEffect(() => {
   
     Promise.all([
       axios.get(`http://localhost:8001/api/days`),
@@ -31,14 +31,14 @@ export default function useApplicationData() {
       dispatchState({
         type: SET_APPLICATION_DATA,
         value:[all[0].data, all[1].data, all[2].data]
-      })
+      });
     });
   },[]);
 
   //booking new interview
 
   function bookInterview(id, interview) {
-    console.log('sn3', id, 'sn5',interview)
+    console.log('sn3', id, 'sn5',interview);
 
     return axios
       .put(`/api/appointments/${id}`, {interview})
@@ -47,10 +47,10 @@ export default function useApplicationData() {
           dispatchState({
             type: SET_INTERVIEW,
             value: {id, interview, spotUpdate: true}
-          })
+          });
         }
-      })
-  };
+      });
+  }
 
   //deleting interview
 
@@ -63,9 +63,9 @@ export default function useApplicationData() {
           dispatchState({
             type: SET_INTERVIEW,
             value: {id, interview: null, spotUpdate: false}
-          })
+          });
         }
-      })
+      });
   }
 
   return {
@@ -73,5 +73,5 @@ export default function useApplicationData() {
     setDay,
     bookInterview,
     cancelInterview
-  }
+  };
 }

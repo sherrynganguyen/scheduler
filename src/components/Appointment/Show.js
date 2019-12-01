@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function Show(props) {
-  function edit() {
-    props.onEdit(props.student, props.interviewer ? props.interviewer.name : "")
-  }
+  const edit = () => {
+    props.onEdit(props.student, props.interviewer ? props.interviewer.name : "");
+  };
   
   return (
     <main className="appointment__card appointment__card--show">
@@ -31,5 +31,5 @@ export default function Show(props) {
         </section>
       </section>
     </main>
-  )
+  );
 }
