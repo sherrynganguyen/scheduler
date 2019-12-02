@@ -15,11 +15,14 @@ export default function reducer(state, action) {
   }
   case SET_INTERVIEW: {
     const {id, interview, spotUpdate} = action.value;
+    console.log('sn7', interview);
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: interview ? { ...interview } : null
     };
-    const appointments = {        ...state.appointments,
+    console.log('sn8', appointment);
+    const appointments = {
+      ...state.appointments,
       [id]: appointment
     };
 

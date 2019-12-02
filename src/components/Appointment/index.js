@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import Header from "./Header";
 import Show from "./Show";
@@ -24,10 +24,12 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 
 export default function Appointment(props) {
+
+  
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  
+
   const saveData = (name, interviewer) => {
     const interview = {
       student: name,
@@ -47,12 +49,22 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
   };
+
+  useEffect(() => {
+    console.log('sn3', props)
+    if (props.interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (!props.interview && mode === SHOW) {
+      transition(EMPTY);
+    }
+    }, [props.interview, transition, mode]);
        
   return (
     <Fragment>
       <Header id={props.id} time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
