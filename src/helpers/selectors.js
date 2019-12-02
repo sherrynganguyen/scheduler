@@ -1,29 +1,34 @@
 
-const getAppointmentsForDay = (state, queryDay) => {
+export const getAppointmentsForDay = (state, queryDay) => {
   const findDay = state.days.find(day => day.name === queryDay);
   return !findDay ? []
     : findDay.appointments.map(appointment =>
       appointment = state.appointments[appointment]);
 };
 
-const getInterviewersForDay = (state, queryDay) => {
+export const getInterviewersForDay = (state, queryDay) => {
   const findDay = state.days.find(day => day.name === queryDay);
   return !findDay ? []
     : findDay.interviewers.map(interviewer =>
       state.interviewers[interviewer]);
 };
 
-const getInterview = (state, interview) => {
+export const getInterview = (state, interview) => {
   return !interview ? null : {
     "student": interview.student,
     "interviewer": state.interviewers[interview.interviewer]
   };
 };
 
-const getDayForAppointment = (state, appointment) => {
+export const getDayForAppointment = (state, appointment) => {
   const getDay = state.days.find(dayInState =>
     dayInState.appointments.includes(appointment));
   return getDay;
 };
 
-module.exports = { getAppointmentsForDay, getInterviewersForDay, getInterview, getDayForAppointment };
+export const getSpotMsg = (spots) => { switch (spots) {
+  case 0: return 'no spots remaining';
+  case 1: return `${spots} spot remaining`;
+  default: return `${spots} spots remaining`;
+}}
+// exports = { getAppointmentsForDay, getInterviewersForDay, getInterview, getDayForAppointment };

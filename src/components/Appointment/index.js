@@ -51,7 +51,6 @@ export default function Appointment(props) {
   };
 
   useEffect(() => {
-    console.log('sn3', props)
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
