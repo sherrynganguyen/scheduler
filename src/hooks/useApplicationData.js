@@ -13,8 +13,8 @@ export default function useApplicationData() {
     days: [],
     appointments: {},
     interviewers: {},
-    spotUpdate: false,
-    count: 0
+    // spotUpdate: false,
+    // count: 0
   };
   // const setDay = day => setState({ ...state, day });
 
@@ -52,7 +52,7 @@ export default function useApplicationData() {
         if (type === "SET_INTERVIEW") {
           dispatchState({
             type,
-            value: {id, interview, count: 0}
+            value: {id, interview}
           })
         }
       }
@@ -75,7 +75,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview, spotUpdate: true, count: 1}
+            value: {id, interview} //spotUpdate: true, count: 1}
           });
         }
       });
@@ -91,7 +91,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview: null, spotUpdate: false, count: -1}
+            value: {id, interview: null}//, spotUpdate: false, count: -1}
           });
         }
       });

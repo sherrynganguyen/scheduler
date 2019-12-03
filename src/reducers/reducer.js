@@ -14,8 +14,7 @@ export default function reducer(state, action) {
     return ({...state, days, appointments, interviewers});
   }
   case SET_INTERVIEW: {
-    const {id, interview, spotUpdate, count} = action.value;
-    console.log('count', count);
+    const {id, interview} = action.value;
     const appointment = {
       ...state.appointments[id],
       interview: interview ? { ...interview } : null
