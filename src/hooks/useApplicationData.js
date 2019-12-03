@@ -2,9 +2,9 @@ import { useState, useEffect, useReducer } from "react";
 
 import axios from "axios";
 
+
 import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reducers/reducer";
 
-// const io = reuqire('socket-io.client');
 
 export default function useApplicationData() {
 
@@ -13,7 +13,8 @@ export default function useApplicationData() {
     days: [],
     appointments: {},
     interviewers: {},
-    spotUpdate: true
+    spotUpdate: false,
+    count: 0
   };
   // const setDay = day => setState({ ...state, day });
 
@@ -28,19 +29,21 @@ export default function useApplicationData() {
   useEffect(() => {
   
     let apiSocket;
-
+    axios.defaults.baseURL = "http://localhost:8001";
     Promise.all([
       axios.get(`http://localhost:8001/api/days`),
       axios.get(`http://localhost:8001/api/appointments`),
       axios.get(`http://localhost:8001/api/interviewers`),
-      new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
     ]).then((all) => {
       // if (okayToDispatch) {
       dispatchState({
         type: SET_APPLICATION_DATA,
         value:[all[0].data, all[1].data, all[2].data]
       });
-      apiSocket = all[3];
+    });
+
+    apiSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
+
       apiSocket.onopen = () => {
         apiSocket.send("ping");
       }
@@ -49,21 +52,17 @@ export default function useApplicationData() {
         if (type === "SET_INTERVIEW") {
           dispatchState({
             type,
-            value: {id, interview}
+            value: {id, interview, count: 0}
           })
         }
       }
-      // }
-      // return () => { apiSocket.onmessage = null; apiSocket.close(); };
-    });
-
     return () => {
       if (apiSocket) {
         apiSocket.onmessage = null;
         apiSocket.close();
       }
-      // setOkayToDispatch(false);
-      // TODO: is this where we clean up?
+    //   // setOkayToDispatch(false);
+    //   // TODO: is this where we clean up?
     }
   },[]);
 
@@ -76,7 +75,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview, spotUpdate: true}
+            value: {id, interview, spotUpdate: true, count: 1}
           });
         }
       });
@@ -92,7 +91,7 @@ export default function useApplicationData() {
         if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
-            value: {id, interview: null, spotUpdate: false}
+            value: {id, interview: null, spotUpdate: false, count: -1}
           });
         }
       });

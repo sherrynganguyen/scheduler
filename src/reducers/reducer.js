@@ -1,4 +1,4 @@
-import { getDayForAppointment } from "../helpers/selectors";
+import { getDayForAppointment,getSpot } from "../helpers/selectors";
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -14,7 +14,8 @@ export default function reducer(state, action) {
     return ({...state, days, appointments, interviewers});
   }
   case SET_INTERVIEW: {
-    const {id, interview, spotUpdate} = action.value;
+    const {id, interview, spotUpdate, count} = action.value;
+    console.log('count', count);
     const appointment = {
       ...state.appointments[id],
       interview: interview ? { ...interview } : null
@@ -25,11 +26,11 @@ export default function reducer(state, action) {
     };
 
     /*use helper function to find the day that appointment is added/moved
-    then update the spots for that specific day*/
+    then getSpot function to count truthy appointment in appointment data 
+    to update the spot*/
 
     const day = getDayForAppointment(state, id);
-    spotUpdate ? day.spots -= 1 : day.spots += 1;
-
+    day.spots = getSpot(day, appointments);
     return ({...state, appointments});
   }
   default:
