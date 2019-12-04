@@ -30,7 +30,7 @@ export const getSpotMsg = (spots) => { switch (spots) {
   case 0: return 'no spots remaining';
   case 1: return `${spots} spot remaining`;
   default: return `${spots} spots remaining`;
-}}
+}};
 
 export const getSpot = (day, appointments) => {
   let count = 0;
@@ -38,5 +38,4 @@ export const getSpot = (day, appointments) => {
     appointments[appointment].interview ? count += 0 : count += 1
   }
   return count;
-}
-// exports = { getAppointmentsForDay, getInterviewersForDay, getInterview, getDayForAppointment };
+};

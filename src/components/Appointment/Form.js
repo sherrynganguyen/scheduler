@@ -27,7 +27,6 @@ export default function Form(props) {
 
   const save = () => {
     validate();
-    // props.onSave(name, interviewer);
   };
 
   const [error, setError] = useState("");
