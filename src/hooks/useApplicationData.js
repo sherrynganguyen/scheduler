@@ -62,8 +62,8 @@ export default function useApplicationData() {
         apiSocket.onmessage = null;
         apiSocket.close();
       }
-    //   // setOkayToDispatch(false);
-    //   // TODO: is this where we clean up?
+      // setOkayToDispatch(false);
+      // TODO: is this where we clean up?
     }
   },[]);
 

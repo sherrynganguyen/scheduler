@@ -94,5 +94,11 @@ export default {
       status: 200,
       statusText: "No content",
     });
+  }),
+  delete: jest.fn(url => {
+    return Promise.resolve({
+      status: 200,
+      statusText: "No content",
+    });
   })
 }
