@@ -150,17 +150,14 @@ describe('Application', () => {
     
     // // 7. Check that the element with the text "Saving" is displayed.
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
-    expect(getAllByTestId(appointment, "Error")).toBeInTheDocument();
     
     // // 8. Wait until the element with the text "Lydia Miller-Jones" is displayed.
-    expect(getAllByTestId(appointment, "Error")).toBeInTheDocument();
+    await waitForElement(() => getAllByTestId(appointment, "Error"));
     debug(prettyDOM(appointment))
-    // 9. Check that the DayListItem with the text "Monday" also has the text "no spots remaining".
-    // const day = getAllByTestId(container, "day").find(day =>
-    //   queryByText(day, "Monday")
-    // );
-  
-    // expect(getByText(day, "no spots remaining")).toBeInTheDocument();
+    // // 9. Click the "Close" button on that same appointment.
+    fireEvent.click(getByAltText(appointment, "Close"))
+
+    expect(getByAltText(appointment, "Sylvia Palmer")).toBeInTheDocument();
   })
 
 
