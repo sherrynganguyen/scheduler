@@ -72,14 +72,14 @@ export default function useApplicationData() {
   function bookInterview(id, interview) {
     return axios
       .put(`/api/appointments/${id}`, {interview})
-      .then(res => {
-        if (res.status === 204) {
+      .then(() => {
+        // if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
             value: {id, interview} //spotUpdate: true, count: 1}
           });
         }
-      });
+      );
   }
 
   //deleting interview
@@ -88,14 +88,14 @@ export default function useApplicationData() {
   
     return axios
       .delete(`/api/appointments/${id}`)
-      .then((res) => {
-        if (res.status === 204) {
+      .then(() => {
+        // if (res.status === 204) {
           dispatchState({
             type: SET_INTERVIEW,
             value: {id, interview: null}//, spotUpdate: false, count: -1}
           });
         }
-      });
+      );
   }
 
   return {

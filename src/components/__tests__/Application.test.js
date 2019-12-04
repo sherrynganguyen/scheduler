@@ -38,12 +38,12 @@ afterEach(cleanup);
 describe('Application', () => {
   // the test will all passed with this. If using async await, it all fails. Do not know why?
 
-  it("defaults to Monday and changes the schedule when a new day is selected without crashing", async () => {
-    const { getByText } = render(<Application />);
-    await waitForElement(() => getByText("Monday"));
-    fireEvent.click(getByText("Tuesday"));
-    expect(getByText("Leopold Silvers")).toBeInTheDocument();
-    });
+  // it("defaults to Monday and changes the schedule when a new day is selected without crashing", async () => {
+  //   const { getByText } = render(<Application />);
+  //   await waitForElement(() => getByText("Monday"));
+  //   fireEvent.click(getByText("Tuesday"));
+  //   expect(getByText("Leopold Silvers")).toBeInTheDocument();
+  //   });
   
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
 
@@ -52,7 +52,6 @@ describe('Application', () => {
     const appointments = getAllByTestId(container, "appointment");
     const appointment = appointments[0];
     fireEvent.click(getByAltText(appointment, "Add"));
-    debug(prettyDOM(appointment))
 
     fireEvent.change(getByPlaceholderText(appointment, "Enter Student Name"),
     { target: { value: 'Lydia Miller-Jones' } }
@@ -64,7 +63,6 @@ describe('Application', () => {
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    debug()
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
@@ -75,22 +73,20 @@ describe('Application', () => {
       appointment => queryByText(appointment, "Archie Cohen")
       );
       
-      
     fireEvent.click(getByAltText(appointment, "Delete"));
     expect(
       getByText(appointment, "Are you sure you want to delete?")
       ).toBeInTheDocument();
     fireEvent.click(getByText(appointment, "Confirm"));
-
     expect(getByText(appointment, "DELETING")).toBeInTheDocument();
 
-
+    debug(prettyDOM(appointment))
     waitForElement(() => getByAltText(appointment, "Add"));
-
+    debug(prettyDOM(appointment))
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    
+    debug(prettyDOM(appointment))
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
     debug(prettyDOM(appointment))
   });
