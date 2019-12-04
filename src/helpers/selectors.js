@@ -20,9 +20,9 @@ export const getInterview = (state, interview) => {
   };
 };
 
-export const getDayForAppointment = (state, appointment) => {
+export const getDayForAppointment = (state, appointmentID) => {
   const getDay = state.days.find(dayInState =>
-    dayInState.appointments.includes(appointment));
+    dayInState.appointments.includes(appointmentID));
   return getDay;
 };
 

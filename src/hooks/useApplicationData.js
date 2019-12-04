@@ -29,7 +29,7 @@ export default function useApplicationData() {
   useEffect(() => {
   
     let apiSocket;
-    axios.defaults.baseURL = "http://localhost:8001";
+    // axios.defaults.baseURL = "http://localhost:8001";
     Promise.all([
       axios.get(`http://localhost:8001/api/days`),
       axios.get(`http://localhost:8001/api/appointments`),
@@ -56,6 +56,7 @@ export default function useApplicationData() {
           })
         }
       }
+
     return () => {
       if (apiSocket) {
         apiSocket.onmessage = null;

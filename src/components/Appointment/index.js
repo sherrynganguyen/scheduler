@@ -61,62 +61,65 @@ export default function Appointment(props) {
        
   return (
     <Fragment>
-      <Header id={props.id} time={props.time}/>
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && props.interview && (
-        <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
-          onEdit={() => transition(EDIT)}
-          onDelete={() => transition(CONFIRM)}
-        />
-      )}
-      {mode === CREATE && (
-        <Form
-          interviewers={props.interviewers}
-          onCancel={back}
-          onSave={saveData}
-        />
-      )}
-      {mode === EDIT && (
-        <Form
-          name={props.interview.student}
-          interviewers={props.interviewers}
-          interviewer={props.interview.interviewer ? props.interview.interviewer.id : ""}
-          onCancel={() => transition(SHOW)}
-          onSave={saveData}
-        />
-      )}
-        
-      {mode === SAVING && (
-        <Status
-          message={"SAVING"}
-        />
-      )}
-      {mode === CONFIRM && (
-        <Confirm
-          message={"Are you sure you want to delete?"}
-          onCancel={back}
-          onConfirm={destroy}
-        />
-      )}
-      {mode === DELETE && (
-        <Status
-          message={"DELETING"}
-        />
-      )}
-      {mode === ERROR_SAVE && (
-        <Error
-          message={"save"}
-          onClose={() => transition(EDIT)}
-        />
-      )}
-      {mode === ERROR_DELETE && (
-        <Error
-          message={"delete"}
-          onClose={() => transition(SHOW)}
-        />
-      )}
+      <article  data-testid="appointment">
+        <Header id={props.id} time={props.time}/>
+        {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+        {mode === SHOW && props.interview && (
+          <Show
+            student={props.interview.student}
+            interviewer={props.interview.interviewer}
+            onEdit={() => transition(EDIT)}
+            onDelete={() => transition(CONFIRM)}
+            
+          />
+        )}
+        {mode === CREATE && (
+          <Form
+            interviewers={props.interviewers}
+            onCancel={back}
+            onSave={saveData}
+          />
+        )}
+        {mode === EDIT && (
+          <Form
+            name={props.interview.student}
+            interviewers={props.interviewers}
+            interviewer={props.interview.interviewer ? props.interview.interviewer.id : ""}
+            onCancel={() => transition(SHOW)}
+            onSave={saveData}
+          />
+        )}
+          
+        {mode === SAVING && (
+          <Status
+            message={"SAVING"}
+          />
+        )}
+        {mode === CONFIRM && (
+          <Confirm
+            message={"Are you sure you want to delete?"}
+            onCancel={back}
+            onConfirm={destroy}
+          />
+        )}
+        {mode === DELETE && (
+          <Status
+            message={"DELETING"}
+          />
+        )}
+        {mode === ERROR_SAVE && (
+          <Error
+            message={"save"}
+            onClose={() => transition(EDIT)}
+          />
+        )}
+        {mode === ERROR_DELETE && (
+          <Error
+            message={"delete"}
+            onClose={() => transition(SHOW)}
+          />
+        )}
+      </article>
     </Fragment>
   );
 }

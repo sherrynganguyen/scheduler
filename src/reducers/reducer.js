@@ -1,5 +1,8 @@
 import { getDayForAppointment,getSpot } from "../helpers/selectors";
 
+import axios from "axios";
+import { ThemeContext } from "@emotion/core";
+
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
@@ -29,7 +32,10 @@ export default function reducer(state, action) {
     to update the spot*/
 
     const day = getDayForAppointment(state, id);
+    // console.log(day)
     day.spots = getSpot(day, appointments);
+    // axios.get(`http://localhost:8001/api/days`)
+      // .then((res) => console.log(res.data[day.id].spots))
     return ({...state, appointments});
   }
   default:
