@@ -4,6 +4,7 @@ import DayListItem from "components/DayListItem";
 export default function DayList({days, day, setDay}) {
   const dayList = days.map((dayListItem) =>
     <DayListItem
+      key={dayListItem.name}
       name={dayListItem.name}
       spots={dayListItem.spots}
       selected={dayListItem.name === day}
