@@ -1,6 +1,8 @@
 # Interview Scheduler
 
-- A Single-Page Application (SPA) that allows user to book/cancel/edit interview apoointments, build in ReactJS.
+- A Single-Page Application (SPA) that allows user to book/cancel/edit interview apoointments, built using ReactJS. The app also used WebSockets. When an appointment is booked/edited/canceled, all connected users will see the update.
+
+- Deployed using Heroku(hosting server site), CircleCI (continuous integration) and Netlify (hosting client site).
 
 ## Final Product
 
@@ -27,10 +29,11 @@
 - React-dom
 - React-scripts
 - ProgreSQL
+- WebSockets
 
 ## DevDependencies
 
-- Babel
+- Babel, Webpack
 - Storybook
 - Jest/React-Testing-Library
 - Cypress
