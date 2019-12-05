@@ -46,6 +46,6 @@ deploy:
           - "15:1a:6e:40:94:44:be:01:4b:c1:ab:85:29:f8:56:4d"
     - checkout
     - run:
-        name: Push Master to Production
+        name: sherrynganguyen to Production
         command: |
           git push https://github.com/lighthouse-labs/scheduler.git master:production
