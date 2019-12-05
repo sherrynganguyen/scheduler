@@ -19,7 +19,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
 
-      workflows:
+workflows:
   version: 2
   test_and_deploy:
     jobs:
