@@ -30,7 +30,7 @@ workflows:
       - deploy:
           filters:
             branches:
-              ignore: production
+              ignore:
           requires:
             - build
 
