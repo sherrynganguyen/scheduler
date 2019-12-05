@@ -19,20 +19,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
 
-workflows:
-  version: 2
-  test_and_deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: production
-      - deploy:
-          filters:
-            branches:
-              ignore:
-          requires:
-            - build
 
 deploy:
   machine:
@@ -50,3 +36,17 @@ deploy:
         command: |
           git push https://github.com/sherrynganguyen/scheduler.git master:production
 
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: production
+      - deploy:
+          filters:
+            branches:
+              ignore: producion
+          requires:
+            - build
