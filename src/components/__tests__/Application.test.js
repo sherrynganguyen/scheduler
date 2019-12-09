@@ -21,12 +21,6 @@ import axios from "axios";
 import Application from "components/Application";
 
 
-
-  // beforeEach(() => {
-  //   axios.defaults.baseURL = "http://localhost:8001"
-  //   jest.mock('axios', () => require("../../__mocks__/axios"));
-  // });
-
 afterEach(cleanup);
 
 describe('Application', () => {
